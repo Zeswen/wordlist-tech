@@ -1,10 +1,9 @@
 import { Router } from 'express';
 import { WordController } from '../controllers';
-import { WordModel } from '../models';
 
-export class WordRoutes<T extends WordModel> {
+export class WordRoutes {
   public router: Router;
-  public wordController: WordController<T> = new WordController<T>();
+  public wordController: WordController = new WordController();
 
   constructor() {
     this.router = Router();

@@ -17,7 +17,7 @@ const init = async (): Promise<void> => {
     // connect to the local database server
     await client.connect();
     // read the contents of the initdb.pgsql file
-    const sql = await fs.readFile('./utils/initdb.pgsql', { encoding: 'UTF-8' });
+    const sql = await fs.readFile('./src/utils/initdb.pgsql', { encoding: 'UTF-8' });
     // split the file into separate statements
     const statements = sql.split(/;\s*$/m);
     for (const statement of statements) {

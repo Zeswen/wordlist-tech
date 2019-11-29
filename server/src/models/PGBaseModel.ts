@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import { Pool, QueryResult } from 'pg';
-import { parseSQLValues } from '../../utils';
+import { parseSQLValues, parseSQLSet, parseSQLWhere } from '../utils';
 
 dotenv.config();
 
@@ -15,7 +15,6 @@ export class PGBaseModel {
   });
 
   static async find<T extends PGBaseModel>(): Promise<T[] | void> {
-    console.log(this.table);
     return new Promise((resolve, reject) => {
       this.pool.query(`SELECT * FROM ${this.table}`, (error: Error, results: QueryResult | void) => {
         if (error) {
@@ -32,7 +31,7 @@ export class PGBaseModel {
   static async findOne<T extends PGBaseModel>(where: object): Promise<T | void> {
     return new Promise((resolve, reject) => {
       this.pool.query(
-        `SELECT * FROM ${this.table} WHERE ${Object.keys(where).join(' ')} = ${parseSQLValues(Object.values(where))}`,
+        `SELECT * FROM ${this.table} WHERE ${parseSQLWhere(where)}`,
         (error: Error, results: QueryResult | void) => {
           if (error) {
             reject(error);
@@ -58,11 +57,25 @@ export class PGBaseModel {
     });
   }
 
-  static async update<T extends PGBaseModel>(): Promise<T | void> {
-    return;
+  static async update(id: string, values: object): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.pool.query(`UPDATE ${this.table}  SET ${parseSQLSet(values)} WHERE ID = ${id}`, (error: Error) => {
+        if (error) {
+          reject(error);
+        }
+        resolve();
+      });
+    });
   }
 
-  static async delete<T extends PGBaseModel>(): Promise<T | void> {
-    return;
+  static async delete(id: number): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.pool.query(`DELETE FROM ${this.table} WHERE ID = ${id}`, (error: Error) => {
+        if (error) {
+          reject(error);
+        }
+        resolve();
+      });
+    });
   }
 }

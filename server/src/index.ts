@@ -5,8 +5,7 @@ import bodyParser from 'body-parser';
 import compression from 'compression';
 import cors from 'cors';
 
-import { UserRoutes, WordRoutes, WordImgRoutes } from './routes';
-import { WordES, WordEN } from './models';
+import { WordRoutes } from './routes';
 
 class Server {
   public app: express.Application;
@@ -27,10 +26,7 @@ class Server {
   }
 
   public routes(): void {
-    this.app.use('/api/user', new UserRoutes().router);
-    this.app.use('/api/word/es', new WordRoutes<WordES>().router);
-    this.app.use('/api/word/en', new WordRoutes<WordEN>().router);
-    this.app.use('/api/word/img', new WordImgRoutes().router);
+    this.app.use('/api/words', new WordRoutes().router);
   }
 
   public start(): void {

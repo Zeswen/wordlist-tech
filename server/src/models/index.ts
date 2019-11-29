@@ -1,2 +1,1 @@
-export { User } from './User';
-export * from './Words';
+export { WordModel } from './WordModel';
