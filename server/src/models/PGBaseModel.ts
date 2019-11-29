@@ -68,7 +68,7 @@ export class PGBaseModel {
     });
   }
 
-  static async delete(id: number): Promise<void> {
+  static async delete(id: string): Promise<void> {
     return new Promise((resolve, reject) => {
       this.pool.query(`DELETE FROM ${this.table} WHERE ID = ${id}`, (error: Error) => {
         if (error) {

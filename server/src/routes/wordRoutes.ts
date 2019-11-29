@@ -12,5 +12,7 @@ export class WordRoutes {
   public routes(): void {
     this.router.get('/', this.wordController.get);
     this.router.post('/', this.wordController.post);
+    this.router.put('/:id', this.wordController.put);
+    this.router.delete('/:id', this.wordController.delete);
   }
 }

@@ -3,9 +3,9 @@ import { isString } from 'util';
 
 export const jsonResponse = <T>(res: Response, status: number, data: T, error?: Error): void => {
   if (data && !error) {
-    res.status(status).json({ OK: true, data, error: null });
+    res.status(status).json(data);
   } else {
-    res.status(status).json({ OK: false, data: null, error });
+    throw error;
   }
 };
 

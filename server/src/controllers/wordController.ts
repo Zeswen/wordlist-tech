@@ -17,9 +17,30 @@ export class WordController {
   }
 
   public async post(req: Request, res: Response): Promise<void> {
-    const { name, description, audio } = req.body;
+    const { image, es_name, es_description, es_audio, en_name, en_description, en_audio } = req.body;
     try {
-      await WordModel.create({ name, description, audio });
+      await WordModel.create({ image, es_name, es_description, es_audio, en_name, en_description, en_audio });
+      jsonResponse<string>(res, 200, 'Word created successfully.');
+    } catch (err) {
+      jsonResponse(res, 500, null, err);
+    }
+  }
+
+  public async put(req: Request, res: Response): Promise<void> {
+    const { id } = req.params;
+    const { image, es_name, es_description, es_audio, en_name, en_description, en_audio } = req.body;
+    try {
+      await WordModel.update(id, { image, es_name, es_description, es_audio, en_name, en_description, en_audio });
+      jsonResponse<string>(res, 200, 'Word created successfully.');
+    } catch (err) {
+      jsonResponse(res, 500, null, err);
+    }
+  }
+
+  public async delete(req: Request, res: Response): Promise<void> {
+    const { id } = req.params;
+    try {
+      await WordModel.delete(id);
       jsonResponse<string>(res, 200, 'Word created successfully.');
     } catch (err) {
       jsonResponse(res, 500, null, err);

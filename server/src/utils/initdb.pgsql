@@ -1,14 +1,23 @@
 DROP TABLE IF EXISTS Words;
 CREATE TABLE Words (
+  "id" INT GENERATED ALWAYS AS IDENTITY,
   "image" TEXT NULL,
-  "es.name" TEXT NULL,
-  "es.description" TEXT NULL,
-  "es.audio" TEXT NULL,
-  "en.name" TEXT NULL,
-  "en.description" TEXT NULL,
-  "en.audio" TEXT NULL
+  "es_name" TEXT NULL,
+  "es_description" TEXT NULL,
+  "es_audio" TEXT NULL,
+  "en_name" TEXT NULL,
+  "en_description" TEXT NULL,
+  "en_audio" TEXT NULL
 );
-INSERT INTO Words
+INSERT INTO Words (
+    "image",
+    "es_name",
+    "es_description",
+    "es_audio",
+    "en_name",
+    "en_description",
+    "en_audio"
+  )
 VALUES
   (
     'https://wl1media.s3-eu-west-1.amazonaws.com/v_20190807/images_w/pairs/16581',
